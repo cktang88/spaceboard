@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Layout from "../components/Layout";
 
-import { ThemeProvider } from "theme-ui";
+import { ThemeProvider, Text } from "theme-ui";
 import theme from "../theme";
 
 const IndexPage = () => (
@@ -13,6 +13,8 @@ const IndexPage = () => (
           <a>About</a>
         </Link>
       </p>
+      <Text>`ctrl+shift+l` to create new card</Text>
+      <br></br>
     </Layout>
   </ThemeProvider>
 );

@@ -8,7 +8,8 @@ export default {
     primary: {
       padding: 2,
       borderRadius: 4,
-      boxShadow: "0 0 8px rgba(0, 0, 0, 0.125)",
+      borderTop: "3px solid rgba(94, 102, 253, 1)",
+      boxShadow: "0 0 8px rgba(0, 0, 0, 0.25)",
     },
     compact: {
       padding: 1,
