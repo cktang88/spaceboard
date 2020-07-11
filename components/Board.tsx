@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Box } from "theme-ui";
 import GridLayout from "react-grid-layout";
 import Notecard from "./Card";
@@ -11,6 +11,8 @@ export type GridItemProps = {
   y: number;
   w: number;
   h: number;
+  isEditing: boolean;
+  isDraggable: boolean;
   i?: string;
 };
 
@@ -28,8 +30,36 @@ const Board = () => {
     setCards((cards) => [...cards, card]);
   };
 
+  useEffect(() => {
+    console.log(cards);
+  }, [cards]);
+
+  const setFocus = (index: number) => {
+    console.log(index);
+    setCards((cards) =>
+      cards.map((c, ind) => ({
+        ...c,
+        isEditing: index == ind,
+        isDraggable: index == ind,
+      }))
+    );
+    console.log("set focus to ", index);
+  };
+
   useHotkeys("ctrl+shift+l", () => {
-    addNewCard({ x: 0, y: 0, w: 2, h: 2, i: nanoid() });
+    addNewCard({
+      x: 0,
+      y: 0,
+      w: 3,
+      h: 4,
+      i: nanoid(),
+      isEditing: false,
+      isDraggable: false,
+    });
+  });
+
+  useHotkeys("esc", () => {
+    setFocus(-1);
   });
 
   return (
@@ -45,19 +75,24 @@ const Board = () => {
         }}
         m={2}
         p={2}
-        bg={theme.colors.muted}
+        bg={theme.colors.background}
       >
         <GridLayout
           className="layout"
           // layout={layout}
           cols={12}
           rowHeight={80}
-          verticalCompact={verticalCollapse} // place items anywhere in grid
+          compactType={verticalCollapse ? "vertical" : null} // place items anywhere in grid
           // onLayoutChange={() => {}}
           width={1800}
         >
-          {cards.map((item: GridItemProps) => (
-            <Notecard data-grid={item} key={item.i} {...item} />
+          {cards.map((item: GridItemProps, index: number) => (
+            <Notecard
+              data-grid={item}
+              key={item.i}
+              {...item}
+              onClick={() => setFocus(index)}
+            />
           ))}
         </GridLayout>
       </Box>

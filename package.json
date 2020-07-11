@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@theme-ui/presets": "^0.3.0",
+    "@theme-ui/prism": "^0.3.0",
     "localforage": "^1.7.4",
     "nanoid": "^3.1.10",
     "next": "latest",

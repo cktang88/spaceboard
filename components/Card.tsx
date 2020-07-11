@@ -2,24 +2,31 @@ import React, { useState } from "react";
 import { Card, Text, Textarea } from "theme-ui";
 import { GridItemProps } from "./Board";
 import ReactMarkdown from "react-markdown";
+import theme from "../theme";
 
 interface Props extends GridItemProps {
+  isEditing: boolean;
+  isDraggable: boolean;
   children?: React.ReactChildren;
+  onClick: (e: React.MouseEvent) => void;
 }
 
-const Notecard = (props: Props) => {
+const Notecard = ({ isEditing, isDraggable, onClick, ...props }: Props) => {
   const [text, setText] = useState("stuff");
-  const [isEditing, setEditing] = useState(false);
-
+  //   const [editing, setEditing] = useState(isEditing);
+  //   console.log("rerendered me", props);
   return (
     <Card
+      {...props}
       sx={{
         // maxWidth: 256,
         userSelect: isEditing ? "auto" : "none",
+        fontSize: 14,
+        fontFamily: theme.fonts.body,
       }}
-      {...props}
-      onClick={() => setEditing(true)}
-      onBlur={() => setEditing(false)}
+      onClick={onClick}
+      //   onBlur={() => setEditing(false)}
+      bg={isEditing ? "white" : "#f0f0f0"}
       //   width={props.w}
       //   height={props.h}
     >
@@ -29,12 +36,13 @@ const Notecard = (props: Props) => {
           sx={{
             minHeight: "100%",
             minWidth: "100%",
+            fontSize: 14,
+            fontFamily: theme.fonts.body,
+            border: "none",
           }}
           value={text}
           onChange={(event) => setText(event.target.value)}
-        >
-          editing...
-        </Textarea>
+        />
       ) : (
         // <Text>{text}</Text>
         <ReactMarkdown source={text} />

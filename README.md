@@ -9,16 +9,19 @@ Inspired by [thesephist/thingboard](https://github.com/thesephist/thingboard).
 Main differences:
 
 1. people usually don't want to overlap notes, and waste a lot of time rearranging to not overlap
-2. focusing on notes/bringing to top is too hard
-3. Built with React/Next.js :)
-4. Support markdown
-5. drag+drop images/files?
-6. use `localforage` for consistent storage mediums
-7. eventually support sharing links...
+   - bringing to top to focus is not ideal UX
+2. Built with React/Next.js :)
+3. Support markdown
 
-## TODO:
+TODO:
 
-- use `@theme-ui/typography`, `@theme-ui/prism`, `@theme-ui/color`, `@theme-ui/mdx`
+4. drag+drop images/files?
+5. use `localforage` for consistent storage mediums
+6. eventually support sharing links...
+
+also:
+
+- use `@theme-ui/typography`, `@theme-ui/prism`, `@theme-ui/color` ?
 
 ## Dev
 
