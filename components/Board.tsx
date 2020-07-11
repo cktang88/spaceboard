@@ -25,7 +25,7 @@ const Board = () => {
   const setFocus = (index: number) => {
     setCards((cards) =>
       cards.map((c, ind) => ({
-        ...c /*  */,
+        ...c,
         isEditing: index == ind,
         isDraggable: index != ind,
       }))
@@ -81,6 +81,7 @@ const Board = () => {
               newLayout.map((e, ind) => ({
                 ...e,
                 isEditing: cards[ind].isEditing,
+                isDraggable: cards[ind].isDraggable,
               }))
             );
           }}

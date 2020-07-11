@@ -45,12 +45,11 @@ const Notecard = ({
         fontSize: 14,
         fontFamily: theme.fonts.body,
       }}
-      //   onBlur={() => setEditing(false)}
-      onClick={onClick}
-      onBlur={onBlur}
+      onClick={(e) => {
+        onClick(e);
+        // e.preventDefault();
+      }}
       bg={isEditing ? "white" : "#f0f0f0"}
-      //   width={props.w}
-      //   height={props.h}
     >
       {/* <Image src={images.nyc} /> */}
       {isEditing ? (
@@ -62,7 +61,9 @@ const Notecard = ({
             fontFamily: theme.fonts.body,
             border: "none",
           }}
+          autoFocus={true}
           value={text}
+          onBlur={onBlur}
           onChange={(event) => setText(event.target.value)}
         />
       ) : (
