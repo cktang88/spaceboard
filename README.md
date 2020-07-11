@@ -18,7 +18,7 @@ Main differences:
 
 ## TODO:
 
-- use `@theme-ui/presets`, `@theme-ui/typography`, `@theme-ui/prism`, `@theme-ui/color`, `@theme-ui/mdx`
+- use `@theme-ui/typography`, `@theme-ui/prism`, `@theme-ui/color`, `@theme-ui/mdx`
 
 ## Dev
 

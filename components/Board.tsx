@@ -4,6 +4,7 @@ import GridLayout from "react-grid-layout";
 import Notecard from "./Card";
 import { useHotkeys } from "react-hotkeys-hook";
 import { nanoid } from "nanoid";
+import theme from "../theme";
 
 export type GridItemProps = {
   x: number;
@@ -44,6 +45,7 @@ const Board = () => {
         }}
         m={2}
         p={2}
+        bg={theme.colors.muted}
       >
         <GridLayout
           className="layout"

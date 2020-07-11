@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { Card, Text, Textarea } from "theme-ui";
 import { GridItemProps } from "./Board";
+import ReactMarkdown from "react-markdown";
 
 interface Props extends GridItemProps {
-  isEditing?: boolean;
   children?: React.ReactChildren;
 }
 
-const Notecard = ({ isEditing, ...props }: Props) => {
+const Notecard = (props: Props) => {
   const [text, setText] = useState("stuff");
+  const [isEditing, setEditing] = useState(false);
 
   return (
     <Card
@@ -17,16 +18,26 @@ const Notecard = ({ isEditing, ...props }: Props) => {
         userSelect: isEditing ? "auto" : "none",
       }}
       {...props}
+      onClick={() => setEditing(true)}
+      onBlur={() => setEditing(false)}
       //   width={props.w}
       //   height={props.h}
     >
       {/* <Image src={images.nyc} /> */}
       {isEditing ? (
-        <Textarea>{JSON.stringify(props)}</Textarea>
+        <Textarea
+          sx={{
+            minHeight: "100%",
+            minWidth: "100%",
+          }}
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+        >
+          editing...
+        </Textarea>
       ) : (
-        <Text>
-          {props.w},{props.h}
-        </Text>
+        // <Text>{text}</Text>
+        <ReactMarkdown source={text} />
       )}
       {props.children}
     </Card>
