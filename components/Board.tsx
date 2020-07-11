@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "theme-ui";
-import GridLayout from "react-grid-layout";
+import GridLayout, { Layout } from "react-grid-layout";
 import Notecard from "./Card";
 import { useHotkeys } from "react-hotkeys-hook";
 import { nanoid } from "nanoid";
 import theme from "../theme";
 
-export type GridItemProps = {
-  x: number;
-  y: number;
-  w: number;
-  h: number;
+export interface GridItemProps extends Layout {
   isEditing: boolean;
-  isDraggable: boolean;
-  i?: string;
-};
+}
 
 const Board = () => {
   // layout is an array of objects, see the demo for more complete usage
@@ -26,12 +20,12 @@ const Board = () => {
   const [cards, setCards] = useState([] as GridItemProps[]);
   const [verticalCollapse, setVerticalCollapse] = useState(false);
   const addNewCard = (card: GridItemProps) => {
-    console.log("added new card", card);
+    // console.log("added new card", card);
     setCards((cards) => [...cards, card]);
   };
 
   useEffect(() => {
-    console.log(cards);
+    // console.log(cards.map((c) => [c.isDraggable, c.i]));
   }, [cards]);
 
   const setFocus = (index: number) => {
@@ -40,10 +34,10 @@ const Board = () => {
       cards.map((c, ind) => ({
         ...c,
         isEditing: index == ind,
-        isDraggable: index == ind,
+        isDraggable: index != ind,
       }))
     );
-    console.log("set focus to ", index);
+    // console.log("set focus to ", index);
   };
 
   useHotkeys("ctrl+shift+l", () => {
@@ -54,7 +48,7 @@ const Board = () => {
       h: 4,
       i: nanoid(),
       isEditing: false,
-      isDraggable: false,
+      isDraggable: true,
     });
   });
 
@@ -79,16 +73,23 @@ const Board = () => {
       >
         <GridLayout
           className="layout"
-          // layout={layout}
+          layout={cards}
           cols={12}
           rowHeight={80}
           compactType={verticalCollapse ? "vertical" : null} // place items anywhere in grid
-          // onLayoutChange={() => {}}
           width={1800}
+          onLayoutChange={(newLayout) => {
+            setCards((cards) =>
+              newLayout.map((e, ind) => ({
+                ...e,
+                isEditing: cards[ind].isEditing,
+              }))
+            );
+          }}
         >
           {cards.map((item: GridItemProps, index: number) => (
             <Notecard
-              data-grid={item}
+              //   data-grid={item}
               key={item.i}
               {...item}
               onClick={() => setFocus(index)}

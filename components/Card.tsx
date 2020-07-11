@@ -6,7 +6,7 @@ import theme from "../theme";
 
 interface Props extends GridItemProps {
   isEditing: boolean;
-  isDraggable: boolean;
+  isDraggable?: boolean;
   children?: React.ReactChildren;
   onClick: (e: React.MouseEvent) => void;
 }
@@ -24,8 +24,11 @@ const Notecard = ({ isEditing, isDraggable, onClick, ...props }: Props) => {
         fontSize: 14,
         fontFamily: theme.fonts.body,
       }}
-      onClick={onClick}
       //   onBlur={() => setEditing(false)}
+      onClick={(e: React.MouseEvent) => {
+        // e.preventDefault();
+        onClick(e);
+      }}
       bg={isEditing ? "white" : "#f0f0f0"}
       //   width={props.w}
       //   height={props.h}
