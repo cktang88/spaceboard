@@ -21,7 +21,9 @@ TODO:
 
 also:
 
-- use `@theme-ui/typography`, `@theme-ui/prism`, `@theme-ui/color` ?
+- use `@theme-ui/typography`,`@theme-ui/color` ?
+
+`@theme-ui/prism` didn't work, so had to use `react-syntax-highlighter` instead.
 
 ## Dev
 

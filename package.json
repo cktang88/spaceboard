@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@theme-ui/presets": "^0.3.0",
-    "@theme-ui/prism": "^0.3.0",
     "localforage": "^1.7.4",
     "nanoid": "^3.1.10",
     "next": "latest",
@@ -18,6 +17,7 @@
     "react-grid-layout": "^0.18.3",
     "react-hotkeys-hook": "^2.1.4",
     "react-markdown": "^4.3.1",
+    "react-syntax-highlighter": "^12.2.1",
     "theme-ui": "^0.3.1"
   },
   "devDependencies": {
@@ -26,6 +26,7 @@
     "@types/react": "^16.9.16",
     "@types/react-dom": "^16.9.4",
     "@types/react-grid-layout": "^0.17.2",
+    "@types/react-syntax-highlighter": "^11.0.4",
     "@types/theme-ui": "^0.3.5",
     "typescript": "3.7.3"
   },

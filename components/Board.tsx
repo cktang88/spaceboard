@@ -11,12 +11,6 @@ export interface GridItemProps extends Layout {
 }
 
 const Board = () => {
-  // layout is an array of objects, see the demo for more complete usage
-  //   const layout = [
-  //     { i: "a", x: 0, y: 0, w: 1, h: 2 }, // static: true
-  //     { i: "b", x: 1, y: 0, w: 3, h: 2, minW: 2, maxW: 6 },
-  //     { i: "c", x: 4, y: 0, w: 1, h: 2 },
-  //   ];
   const [cards, setCards] = useState([] as GridItemProps[]);
   const [verticalCollapse, setVerticalCollapse] = useState(false);
   const addNewCard = (card: GridItemProps) => {
@@ -29,15 +23,13 @@ const Board = () => {
   }, [cards]);
 
   const setFocus = (index: number) => {
-    console.log(index);
     setCards((cards) =>
       cards.map((c, ind) => ({
-        ...c,
+        ...c /*  */,
         isEditing: index == ind,
         isDraggable: index != ind,
       }))
     );
-    // console.log("set focus to ", index);
   };
 
   useHotkeys("ctrl+shift+l", () => {
@@ -55,6 +47,12 @@ const Board = () => {
   useHotkeys("esc", () => {
     setFocus(-1);
   });
+
+  /**
+   * NOTE: for GridLayout, using layout prop + onLayoutChange = controlled elem
+   * for uncontrolled elem, use the data-grid prop for each child
+   * Controlled elem is needed here b/c we have special requirements for focusing
+   */
 
   return (
     <>
@@ -92,6 +90,7 @@ const Board = () => {
               //   data-grid={item}
               key={item.i}
               {...item}
+              onBlur={() => setFocus(-1)}
               onClick={() => setFocus(index)}
             />
           ))}

@@ -1,16 +1,9 @@
 import { swiss } from "@theme-ui/presets";
-import nightOwl from "@theme-ui/prism/presets/night-owl";
 
 export default {
   ...swiss,
   styles: {
     ...swiss.styles,
-    pre: {
-      ...nightOwl,
-    },
-    code: {
-      ...nightOwl,
-    },
   },
 
   cards: {
