@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Textarea, Box } from "theme-ui";
 import { GridItemProps } from "./Board";
 import ReactMarkdown from "react-markdown";
@@ -37,6 +37,17 @@ const Notecard = ({
   ...props
 }: Props) => {
   const [text, setText] = useState(props.initialData || "");
+
+  useEffect(() => {
+    // loading
+    localforage
+      .getItem(`spaceboard_card_${props.i}`)
+      .then((data) => {
+        console.log("got", data, "for", props.i);
+        setText(data as string);
+      })
+      .catch((err) => console.log(err));
+  }, []);
 
   //saving each card
   const saveText = () => {

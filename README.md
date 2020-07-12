@@ -16,7 +16,6 @@ Main differences:
 TODO:
 
 - remove elem
-- fix storing data in localstorage...
 - fix annoying entering edit mode whenever moving around a card
 
 - enable tabbing to insert tab in textArea (maybe look into https://www.npmjs.com/package/react-simple-code-editor but really need tabs for bullet lists as well...)

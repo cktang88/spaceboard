@@ -55,22 +55,6 @@ const Board = () => {
             setCards((storedCards || []) as GridItemProps[]);
             return storedCards || [];
           })
-          .then((storedCards) =>
-            // load each card's initial data
-            Promise.all(
-              (storedCards as GridItemProps[]).map(({ i }) => {
-                localforage
-                  .getItem(`spaceboard_card_${i}`)
-                  .then((data: string) => {
-                    console.log("got", data, "for", i);
-                    const newCards = cards;
-                    newCards.filter((c) => c.i == i)[0].initialData = data;
-                    setCards(newCards);
-                  })
-                  .catch((err) => console.log(err));
-              })
-            )
-          )
           .catch((err) => console.log(err))
       );
   }, []);
