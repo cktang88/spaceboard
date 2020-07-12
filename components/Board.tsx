@@ -75,8 +75,9 @@ const Board = () => {
           cols={12}
           rowHeight={80}
           compactType={verticalCollapse ? "vertical" : null} // place items anywhere in grid
-          width={1800}
+          width={1900}
           onLayoutChange={(newLayout) => {
+            // console.log("layout changed");
             setCards((cards) =>
               newLayout.map((e, ind) => ({
                 ...e,

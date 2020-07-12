@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { Card, Text, Textarea } from "theme-ui";
+import { Card, Textarea } from "theme-ui";
 import { GridItemProps } from "./Board";
 import ReactMarkdown from "react-markdown";
 import theme from "../theme";
-import { Prism } from "react-syntax-highlighter";
-import coy from "react-syntax-highlighter/dist/cjs/prism";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import tomorrow from "react-syntax-highlighter/dist/cjs/styles/prism/tomorrow";
 
 interface Props extends GridItemProps {
   isEditing: boolean;
@@ -21,9 +21,9 @@ const CodeBlock = ({
   language: string;
   value: string;
 }) => (
-  <Prism language={language} style={coy}>
+  <SyntaxHighlighter language={language} style={tomorrow}>
     {value}
-  </Prism>
+  </SyntaxHighlighter>
 );
 
 const Notecard = ({
