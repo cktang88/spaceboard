@@ -15,6 +15,12 @@ Main differences:
 
 TODO:
 
+- remove elem
+- store data in localstorage...
+- fix annoying entering edit mode whenever moving around a card
+
+- enable tabbing to insert tab in textArea (maybe look into https://www.npmjs.com/package/react-simple-code-editor but really need tabs for bullet lists as well...)
+
 4. drag+drop images/files?
 5. use `localforage` for consistent storage mediums
 6. eventually support sharing links...

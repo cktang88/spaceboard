@@ -10,7 +10,7 @@ export default {
     primary: {
       padding: 2,
       borderRadius: 4,
-      borderTop: "3px solid rgba(94, 102, 253, 1)",
+      borderTop: "4px solid rgba(94, 102, 253, 1)",
       boxShadow: "0 8px 12px rgba(0, 0, 0, 0.25)",
     },
     compact: {

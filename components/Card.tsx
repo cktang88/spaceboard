@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Textarea } from "theme-ui";
+import { Card, Textarea, Box } from "theme-ui";
 import { GridItemProps } from "./Board";
 import ReactMarkdown from "react-markdown";
 import theme from "../theme";
@@ -9,6 +9,7 @@ import tomorrow from "react-syntax-highlighter/dist/cjs/styles/prism/tomorrow";
 interface Props extends GridItemProps {
   isEditing: boolean;
   isDraggable?: boolean;
+  initialData?: string;
   children?: React.ReactChildren;
   onClick: (e: React.MouseEvent) => void;
   onBlur: (e: React.FocusEvent) => void;
@@ -33,7 +34,7 @@ const Notecard = ({
   onBlur,
   ...props
 }: Props) => {
-  const [text, setText] = useState("stuff");
+  const [text, setText] = useState(props.initialData || "");
   //   const [editing, setEditing] = useState(isEditing);
   //   console.log("rerendered me", props);
   return (
@@ -44,12 +45,16 @@ const Notecard = ({
         userSelect: isEditing ? "auto" : "none",
         fontSize: 14,
         fontFamily: theme.fonts.body,
+        // borderTopWidth: isEditing ? "4px" : "4px",
+        borderTopColor: isEditing
+          ? "rgba(94, 102, 253, 1)"
+          : "rgba(94, 102, 253, .5)",
       }}
       onClick={(e) => {
         onClick(e);
         // e.preventDefault();
       }}
-      bg={isEditing ? "white" : "#f0f0f0"}
+      bg={isEditing ? "white" : "#fafafa"}
     >
       {/* <Image src={images.nyc} /> */}
       {isEditing ? (
@@ -60,15 +65,36 @@ const Notecard = ({
             fontSize: 14,
             fontFamily: theme.fonts.body,
             border: "none",
+            outline: "none",
           }}
+          m={0}
+          pt={3}
           autoFocus={true}
           value={text}
           onBlur={onBlur}
           onChange={(event) => setText(event.target.value)}
+          //   onKeyDown={function (e) {
+          //     if (e.key == "Tab") {
+          //       console.log(e);
+          //       let newText = text + "\t";
+          //       //   let newText =
+          //       //     text.substring(0, this.selectionStart) +
+          //       //     "\t" +
+          //       //     text.substr(this.selectionEnd);
+          //       setText((text) => newText);
+          //       e.preventDefault();
+          //     }
+          //   }}
         />
       ) : (
-        // <Text>{text}</Text>
-        <ReactMarkdown source={text} renderers={{ code: CodeBlock }} />
+        <Box ml={2}>
+          <ReactMarkdown
+            //@ts-ignore
+            // a hack to preserve newlines in markdown
+            source={text.replaceAll("\n", "  \n")}
+            renderers={{ code: CodeBlock }}
+          />
+        </Box>
       )}
       {props.children}
     </Card>

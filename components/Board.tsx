@@ -13,14 +13,11 @@ export interface GridItemProps extends Layout {
 const Board = () => {
   const [cards, setCards] = useState([] as GridItemProps[]);
   const [verticalCollapse, setVerticalCollapse] = useState(false);
+  const NUM_COLS = 12;
   const addNewCard = (card: GridItemProps) => {
     // console.log("added new card", card);
     setCards((cards) => [...cards, card]);
   };
-
-  useEffect(() => {
-    // console.log(cards.map((c) => [c.isDraggable, c.i]));
-  }, [cards]);
 
   const setFocus = (index: number) => {
     setCards((cards) =>
@@ -32,21 +29,30 @@ const Board = () => {
     );
   };
 
-  useHotkeys("ctrl+shift+l", () => {
-    addNewCard({
-      x: 0,
-      y: 0,
-      w: 3,
-      h: 4,
-      i: nanoid(),
-      isEditing: false,
-      isDraggable: true,
-    });
-  });
+  useHotkeys(
+    "ctrl+shift+l",
+    () => {
+      const cardWidth = 2;
+      addNewCard({
+        x: (cards.length * cardWidth) % NUM_COLS,
+        y: -1,
+        w: cardWidth,
+        h: 3,
+        i: nanoid(),
+        isEditing: false,
+        isDraggable: true,
+      });
+    },
+    [cards]
+  );
 
-  useHotkeys("esc", () => {
-    setFocus(-1);
-  });
+  useHotkeys(
+    "esc",
+    () => {
+      setFocus(-1);
+    },
+    [cards]
+  );
 
   /**
    * NOTE: for GridLayout, using layout prop + onLayoutChange = controlled elem
@@ -67,12 +73,13 @@ const Board = () => {
         }}
         m={2}
         p={2}
-        bg={theme.colors.background}
+        bg="#f0f0f0"
+        // bg={theme.colors.background}
       >
         <GridLayout
           className="layout"
           layout={cards}
-          cols={12}
+          cols={NUM_COLS}
           rowHeight={80}
           compactType={verticalCollapse ? "vertical" : null} // place items anywhere in grid
           width={1900}
