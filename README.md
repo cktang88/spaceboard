@@ -1,6 +1,15 @@
 # Spaceboard
 
-Pinterest for Notes.
+### Pinterest for Notes.
+
+Features:
+
+- full Markdown support
+- Saves automatically to IndexedDB/WebSQL/LocalStorage
+- free-form rearranging of cards, with automatic tiling/non-overlapping
+- offline support
+
+![example](./example.png)
 
 ## Inspiration
 

@@ -10,8 +10,6 @@ import localforage from "localforage";
 
 interface Props extends GridItemProps {
   isEditing: boolean;
-  isDraggable?: boolean;
-  initialData?: string;
   children?: React.ReactChildren;
   onClick: (e: React.MouseEvent) => void;
   onBlur: (e: React.FocusEvent) => void;
@@ -36,7 +34,7 @@ const Notecard = ({
   onBlur,
   ...props
 }: Props) => {
-  const [text, setText] = useState(props.initialData || "");
+  const [text, setText] = useState("");
 
   useEffect(() => {
     // loading

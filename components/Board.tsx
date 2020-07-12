@@ -9,17 +9,14 @@ import localforage from "localforage";
 
 export interface GridItemProps extends Layout {
   isEditing: boolean;
-  initialData?: string;
 }
 
 const Board = () => {
   const [cards, setCards] = useState([] as GridItemProps[]);
   const [verticalCollapse, setVerticalCollapse] = useState(false);
   const NUM_COLS = 12;
-  const addNewCard = (card: GridItemProps) => {
-    // console.log("added new card", card);
+  const addNewCard = (card: GridItemProps) =>
     setCards((cards) => [...cards, card]);
-  };
 
   useEffect(() => {
     // loading
