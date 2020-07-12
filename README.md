@@ -2,6 +2,8 @@
 
 ### Pinterest for Notes.
 
+**[Try the Demo here!](https://spaceboard.vercel.app/)**
+
 Features:
 
 - full Markdown support
