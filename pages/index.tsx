@@ -14,7 +14,7 @@ const IndexPage = () => (
           <a>About</a>
         </Link>
       </p>
-      <Text>`ctrl+shift+l` to create new card</Text>
+      <Text>`alt+n` to create new card</Text>
       <br></br>
     </Layout>
   </ThemeProvider>

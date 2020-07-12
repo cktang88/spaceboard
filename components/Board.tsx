@@ -58,7 +58,7 @@ const Board = () => {
   };
 
   useHotkeys(
-    "ctrl+shift+l",
+    "alt+n",
     () => {
       const cardWidth = 2;
       const newX = (cards.length * cardWidth) % NUM_COLS;
