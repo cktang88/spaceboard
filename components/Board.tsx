@@ -42,7 +42,7 @@ const Board = () => {
     localforage
       .setItem("spaceboard_layout", cards)
       .then(() => {
-        console.log(`stored "spaceboard_layout" successfully.`, cards);
+        // console.log(`stored "spaceboard_layout" successfully.`, cards);
         //   console.log(cards);
       })
       .catch((err) => console.log(err));

@@ -61,7 +61,7 @@ const Notecard = ({
       localforage
         .setItem(`spaceboard_card_${props.i}`, text)
         .then(() => {
-          console.log(`stored "spaceboard_card_${props.i}" successfully.`);
+          //   console.log(`stored "spaceboard_card_${props.i}" successfully.`);
           //   console.log(cards);
         })
         .catch((err) => console.log(err));
