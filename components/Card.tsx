@@ -48,7 +48,7 @@ const Notecard = ({
         localforage
           .getItem(`spaceboard_card_${props.i}`)
           .then((data) => {
-            console.log("got", data, "for", props.i);
+            // console.log("got", data, "for", props.i);
             data && setText(data as string);
           })
           .catch((err) => console.log(err));
