@@ -5,6 +5,8 @@ import ReactMarkdown from "react-markdown";
 import theme from "../theme";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import tomorrow from "react-syntax-highlighter/dist/cjs/styles/prism/tomorrow";
+// import useInterval from "../utils/useInterval";
+import localforage from "localforage";
 
 interface Props extends GridItemProps {
   isEditing: boolean;
@@ -35,6 +37,28 @@ const Notecard = ({
   ...props
 }: Props) => {
   const [text, setText] = useState(props.initialData || "");
+
+  //saving each card
+  const saveText = () => {
+    if (isEditing) {
+      localforage
+        .setDriver([
+          localforage.INDEXEDDB,
+          localforage.WEBSQL,
+          localforage.LOCALSTORAGE,
+        ])
+        .then(() =>
+          localforage
+            .setItem(`spaceboard_card_${props.i}`, text)
+            .then(() => {
+              console.log(`stored "spaceboard_card_${props.i}" successfully.`);
+              //   console.log(cards);
+            })
+            .catch((err) => console.log(err))
+        );
+    }
+  };
+
   //   const [editing, setEditing] = useState(isEditing);
   //   console.log("rerendered me", props);
   return (
@@ -72,7 +96,11 @@ const Notecard = ({
           autoFocus={true}
           value={text}
           onBlur={onBlur}
-          onChange={(event) => setText(event.target.value)}
+          onChange={(event) => {
+            setText(event.target.value);
+            // save text on change...
+            saveText();
+          }}
           //   onKeyDown={function (e) {
           //     if (e.key == "Tab") {
           //       console.log(e);

@@ -4,10 +4,12 @@ import GridLayout, { Layout } from "react-grid-layout";
 import Notecard from "./Card";
 import { useHotkeys } from "react-hotkeys-hook";
 import { nanoid } from "nanoid";
-import theme from "../theme";
+
+import localforage from "localforage";
 
 export interface GridItemProps extends Layout {
   isEditing: boolean;
+  initialData?: string;
 }
 
 const Board = () => {
@@ -18,6 +20,60 @@ const Board = () => {
     // console.log("added new card", card);
     setCards((cards) => [...cards, card]);
   };
+
+  const saveLayout = () => {
+    //saving
+    localforage
+      .setDriver([
+        localforage.INDEXEDDB,
+        localforage.WEBSQL,
+        localforage.LOCALSTORAGE,
+      ])
+      .then(() =>
+        localforage
+          .setItem("spaceboard_layout", cards)
+          .then(() => {
+            console.log(`stored "spaceboard_layout" successfully.`, cards);
+            //   console.log(cards);
+          })
+          .catch((err) => console.log(err))
+      );
+  };
+
+  useEffect(() => {
+    // loading
+    localforage
+      .setDriver([
+        localforage.INDEXEDDB,
+        localforage.WEBSQL,
+        localforage.LOCALSTORAGE,
+      ])
+      .then(() =>
+        localforage
+          .getItem("spaceboard_layout")
+          .then((storedCards) => {
+            setCards((storedCards || []) as GridItemProps[]);
+            return storedCards || [];
+          })
+          .then((storedCards) =>
+            // load each card's initial data
+            Promise.all(
+              (storedCards as GridItemProps[]).map(({ i }) => {
+                localforage
+                  .getItem(`spaceboard_card_${i}`)
+                  .then((data: string) => {
+                    console.log("got", data, "for", i);
+                    const newCards = cards;
+                    newCards.filter((c) => c.i == i)[0].initialData = data;
+                    setCards(newCards);
+                  })
+                  .catch((err) => console.log(err));
+              })
+            )
+          )
+          .catch((err) => console.log(err))
+      );
+  }, []);
 
   const setFocus = (index: number) => {
     setCards((cards) =>
@@ -33,9 +89,13 @@ const Board = () => {
     "ctrl+shift+l",
     () => {
       const cardWidth = 2;
+      const newX = (cards.length * cardWidth) % NUM_COLS;
       addNewCard({
-        x: (cards.length * cardWidth) % NUM_COLS,
-        y: -1,
+        x: newX,
+        // quick and dirty placement
+        y: cards
+          .filter(({ x }) => x == newX)
+          .reduce((sum, { h }) => sum + h, 0),
         w: cardWidth,
         h: 3,
         i: nanoid(),
@@ -92,6 +152,8 @@ const Board = () => {
                 isDraggable: cards[ind].isDraggable,
               }))
             );
+            // save whenever layout changed
+            saveLayout();
           }}
         >
           {cards.map((item: GridItemProps, index: number) => (

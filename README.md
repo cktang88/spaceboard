@@ -16,7 +16,7 @@ Main differences:
 TODO:
 
 - remove elem
-- store data in localstorage...
+- optimize storing data in localstorage => only update the data of the card that is currently being edited...
 - fix annoying entering edit mode whenever moving around a card
 
 - enable tabbing to insert tab in textArea (maybe look into https://www.npmjs.com/package/react-simple-code-editor but really need tabs for bullet lists as well...)
