@@ -24,7 +24,17 @@ Main differences:
 2. Built with React/Next.js :)
 3. Support markdown
 
-TODO:
+## Dev
+
+Tech stack: Next.js, React, ThemeUI/Styled-system, TypeScript
+
+```bash
+yarn create next-app --example with-typescript
+yarn
+yarn dev
+```
+
+## Todos
 
 - remove elem
 - fix annoying entering edit mode whenever moving around a card
@@ -39,14 +49,6 @@ also:
 - use `@theme-ui/typography`,`@theme-ui/color` ?
 
 `@theme-ui/prism` didn't work, so had to use `react-syntax-highlighter` instead.
-
-## Dev
-
-```bash
-yarn create next-app --example with-typescript
-yarn
-yarn dev
-```
 
 ## Deploy your own
 
