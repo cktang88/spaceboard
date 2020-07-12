@@ -21,25 +21,6 @@ const Board = () => {
     setCards((cards) => [...cards, card]);
   };
 
-  const saveLayout = () => {
-    //saving
-    localforage
-      .setDriver([
-        localforage.INDEXEDDB,
-        localforage.WEBSQL,
-        localforage.LOCALSTORAGE,
-      ])
-      .then(() =>
-        localforage
-          .setItem("spaceboard_layout", cards)
-          .then(() => {
-            console.log(`stored "spaceboard_layout" successfully.`, cards);
-            //   console.log(cards);
-          })
-          .catch((err) => console.log(err))
-      );
-  };
-
   useEffect(() => {
     // loading
     localforage
@@ -59,6 +40,16 @@ const Board = () => {
       );
   }, []);
 
+  const saveLayout = () => {
+    //saving
+    localforage
+      .setItem("spaceboard_layout", cards)
+      .then(() => {
+        console.log(`stored "spaceboard_layout" successfully.`, cards);
+        //   console.log(cards);
+      })
+      .catch((err) => console.log(err));
+  };
   const setFocus = (index: number) => {
     setCards((cards) =>
       cards.map((c, ind) => ({

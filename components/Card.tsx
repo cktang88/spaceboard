@@ -41,32 +41,32 @@ const Notecard = ({
   useEffect(() => {
     // loading
     localforage
-      .getItem(`spaceboard_card_${props.i}`)
-      .then((data) => {
-        console.log("got", data, "for", props.i);
-        setText(data as string);
-      })
-      .catch((err) => console.log(err));
+      .setDriver([
+        localforage.INDEXEDDB,
+        localforage.WEBSQL,
+        localforage.LOCALSTORAGE,
+      ])
+      .then(() => {
+        localforage
+          .getItem(`spaceboard_card_${props.i}`)
+          .then((data) => {
+            console.log("got", data, "for", props.i);
+            data && setText(data as string);
+          })
+          .catch((err) => console.log(err));
+      });
   }, []);
 
   //saving each card
   const saveText = () => {
     if (isEditing) {
       localforage
-        .setDriver([
-          localforage.INDEXEDDB,
-          localforage.WEBSQL,
-          localforage.LOCALSTORAGE,
-        ])
-        .then(() =>
-          localforage
-            .setItem(`spaceboard_card_${props.i}`, text)
-            .then(() => {
-              console.log(`stored "spaceboard_card_${props.i}" successfully.`);
-              //   console.log(cards);
-            })
-            .catch((err) => console.log(err))
-        );
+        .setItem(`spaceboard_card_${props.i}`, text)
+        .then(() => {
+          console.log(`stored "spaceboard_card_${props.i}" successfully.`);
+          //   console.log(cards);
+        })
+        .catch((err) => console.log(err));
     }
   };
 
