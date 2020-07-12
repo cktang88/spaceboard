@@ -128,7 +128,7 @@ const Notecard = ({
           <ReactMarkdown
             //@ts-ignore
             // a hack to preserve newlines in markdown
-            source={text.replaceAll("\n", "  \n")}
+            source={text.split("\n").join("  \n")}
             renderers={{ code: CodeBlock }}
           />
         </Box>
