@@ -8,7 +8,8 @@ Features:
 
 - full Markdown support
 - Saves automatically to IndexedDB/WebSQL/LocalStorage
-- free-form rearranging of cards, with automatic tiling/non-overlapping
+- free-form rearranging of cards, with automatic tiling/non-overlapping, snaps to grid
+- resizable cards
 - offline support
 
 ![example](./example.png)
