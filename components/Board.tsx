@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box } from "theme-ui";
 import GridLayout, { Layout } from "react-grid-layout";
 import Notecard from "./Card";
-import { useHotkeys } from "react-hotkeys-hook";
+import { useHotkeys, useIsHotkeyPressed } from "react-hotkeys-hook";
 import { nanoid } from "nanoid";
 
 import localforage from "localforage";
@@ -13,7 +13,7 @@ export interface GridItemProps extends Layout {
 
 const Board = () => {
   const [cards, setCards] = useState([] as GridItemProps[]);
-  const [isDeletingMode, setDeletingMode] = useState(false);
+  // const isPressed = useIsHotkeyPressed();
   const [verticalCollapse, setVerticalCollapse] = useState(false);
   const NUM_COLS = 12;
   const addNewCard = (card: GridItemProps) =>
@@ -94,14 +94,14 @@ const Board = () => {
     [cards]
   );
 
-  useHotkeys(
-    "alt",
-    () => {
-      setDeletingMode((isDeletingMode) => !isDeletingMode);
-      console.log("set deleting mode", isDeletingMode);
-    },
-    [cards]
-  );
+  // useHotkeys(
+  //   "alt+d",
+  //   () => {
+  //     isDeletingMode ? setDeletingMode(false) : setDeletingMode(true);
+  //     console.log("set deleting mode", isDeletingMode);
+  //   },
+  //   [cards]
+  // );
 
   useHotkeys(
     "esc",
@@ -160,11 +160,11 @@ const Board = () => {
               {...item}
               onBlur={() => setFocus(-1)}
               onClick={() => {
-                if (hotkeys) {
-                  setFocus(index);
-                } else {
-                  removeCard(item.i);
-                }
+                // if (!isDeletingMode) {
+                setFocus(index);
+                // } else {
+                //   removeCard(item.i);
+                // }
               }}
             />
           ))}
