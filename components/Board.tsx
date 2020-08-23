@@ -65,13 +65,13 @@ const Board = () => {
       }))
     );
   };
-  const removeCard = (key: string) => {
-    // remove card
-    console.log("removing card...");
-    localforage.removeItem(`spaceboard_card_${key}`);
-    setCards((cards) => cards.filter(({ i }) => i !== key));
-    saveLayout();
-  };
+  // const removeCard = (key: string) => {
+  //   // remove card
+  //   console.log("removing card...");
+  //   localforage.removeItem(`spaceboard_card_${key}`);
+  //   setCards((cards) => cards.filter(({ i }) => i !== key));
+  //   saveLayout();
+  // };
 
   useHotkeys(
     "alt+n",
