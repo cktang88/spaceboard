@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box } from "theme-ui";
 import GridLayout, { Layout } from "react-grid-layout";
 import Notecard from "./Card";
-import { useHotkeys, useIsHotkeyPressed } from "react-hotkeys-hook";
+import { useHotkeys } from "react-hotkeys-hook";
 import { nanoid } from "nanoid";
 
 import localforage from "localforage";
