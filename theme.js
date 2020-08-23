@@ -4,6 +4,19 @@ export default {
   ...swiss,
   styles: {
     ...swiss.styles,
+    th: {
+      verticalAlign: "bottom",
+      borderBottomWidth: "2px",
+      border: "1px solid black",
+    },
+    td: {
+      verticalAlign: "top",
+      borderBottomWidth: "1px",
+      border: "1px solid black",
+    },
+    tb: {
+      border: "1px solid black",
+    },
   },
 
   cards: {

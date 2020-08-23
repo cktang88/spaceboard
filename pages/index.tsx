@@ -4,6 +4,7 @@ import Layout from "../components/Layout";
 import { ThemeProvider, Text } from "theme-ui";
 
 import theme from "../theme";
+import Board from "../components/Board";
 
 const IndexPage = () => (
   <ThemeProvider theme={theme}>
@@ -16,6 +17,7 @@ const IndexPage = () => (
       </p>
       <Text>`alt+n` to create new card</Text>
       <br></br>
+      <Board />
     </Layout>
   </ThemeProvider>
 );

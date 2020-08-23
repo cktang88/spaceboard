@@ -61,7 +61,7 @@ const Notecard = ({
       localforage
         .setItem(`spaceboard_card_${props.i}`, text)
         .then(() => {
-          //   console.log(`stored "spaceboard_card_${props.i}" successfully.`);
+          console.log(`stored "spaceboard_card_${props.i}" successfully.`);
           //   console.log(cards);
         })
         .catch((err) => console.log(err));
@@ -84,8 +84,10 @@ const Notecard = ({
           : "rgba(94, 102, 253, .5)",
       }}
       onClick={(e) => {
+        e.preventDefault();
+
         onClick(e);
-        // e.preventDefault();
+        console.log(e.button);
       }}
       bg={isEditing ? "white" : "#fafafa"}
     >

@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 // import Link from "next/link";
 import Head from "next/head";
-import Board from "./Board";
+import { Box } from "theme-ui";
 
 type Props = {
   children?: ReactNode;
@@ -31,8 +31,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => (
         | <a href="/api/users">Users API</a>
       </nav>
     </header> */}
-    {children}
-    <Board />
+    <Box px={4}>{children}</Box>
 
     {/* <footer>
       <hr />

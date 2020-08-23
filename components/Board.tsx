@@ -13,6 +13,7 @@ export interface GridItemProps extends Layout {
 
 const Board = () => {
   const [cards, setCards] = useState([] as GridItemProps[]);
+  const [isDeletingMode, setDeletingMode] = useState(false);
   const [verticalCollapse, setVerticalCollapse] = useState(false);
   const NUM_COLS = 12;
   const addNewCard = (card: GridItemProps) =>
@@ -40,12 +41,20 @@ const Board = () => {
   const saveLayout = () => {
     //saving
     localforage
-      .setItem("spaceboard_layout", cards)
+      .setDriver([
+        localforage.INDEXEDDB,
+        localforage.WEBSQL,
+        localforage.LOCALSTORAGE,
+      ])
       .then(() => {
-        // console.log(`stored "spaceboard_layout" successfully.`, cards);
-        //   console.log(cards);
-      })
-      .catch((err) => console.log(err));
+        localforage
+          .setItem("spaceboard_layout", cards)
+          .then(() => {
+            console.log(`stored "spaceboard_layout" successfully.`, cards);
+            //   console.log(cards);
+          })
+          .catch((err) => console.log(err));
+      });
   };
   const setFocus = (index: number) => {
     setCards((cards) =>
@@ -55,6 +64,13 @@ const Board = () => {
         isDraggable: index != ind,
       }))
     );
+  };
+  const removeCard = (key: string) => {
+    // remove card
+    console.log("removing card...");
+    localforage.removeItem(`spaceboard_card_${key}`);
+    setCards((cards) => cards.filter(({ i }) => i !== key));
+    saveLayout();
   };
 
   useHotkeys(
@@ -74,6 +90,15 @@ const Board = () => {
         isEditing: false,
         isDraggable: true,
       });
+    },
+    [cards]
+  );
+
+  useHotkeys(
+    "alt",
+    () => {
+      setDeletingMode((isDeletingMode) => !isDeletingMode);
+      console.log("set deleting mode", isDeletingMode);
     },
     [cards]
   );
@@ -134,7 +159,13 @@ const Board = () => {
               key={item.i}
               {...item}
               onBlur={() => setFocus(-1)}
-              onClick={() => setFocus(index)}
+              onClick={() => {
+                if (hotkeys) {
+                  setFocus(index);
+                } else {
+                  removeCard(item.i);
+                }
+              }}
             />
           ))}
         </GridLayout>
